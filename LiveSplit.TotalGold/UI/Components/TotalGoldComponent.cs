@@ -70,6 +70,8 @@ namespace LiveSplit.UI.Components
                 = InternalComponent.ValueLabel.HasShadow
                 = state.LayoutSettings.DropShadows;
 
+            Formatter.Accuracy = Settings.Accuracy;
+
             InternalComponent.NameLabel.ForeColor = state.LayoutSettings.TextColor;
             InternalComponent.ValueLabel.ForeColor = state.LayoutSettings.TextColor;
 
@@ -85,7 +87,7 @@ namespace LiveSplit.UI.Components
                 = InternalComponent.ValueLabel.HasShadow
                 = state.LayoutSettings.DropShadows;
 
-            // TODO: Add format call here and horizontal
+            Formatter.Accuracy = Settings.Accuracy;
 
             InternalComponent.NameLabel.ForeColor = state.LayoutSettings.TextColor;
             InternalComponent.ValueLabel.ForeColor = state.LayoutSettings.TextColor;
@@ -123,8 +125,7 @@ namespace LiveSplit.UI.Components
                     TimeSpan difference = StartingSumOfBest.Value - CurrentSumOfBest.Value;
                     if (difference > TimeSpan.Zero)
                     {
-                        GoldThisRun += difference;
-
+                        GoldThisRun = difference;
                     }
                 }
                 InternalComponent.TimeValue = GoldThisRun;

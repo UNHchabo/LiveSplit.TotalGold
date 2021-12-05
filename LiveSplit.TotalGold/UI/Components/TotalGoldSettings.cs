@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
+using LiveSplit.TimeFormatters;
 
 namespace LiveSplit.UI.Components
 {
@@ -12,18 +13,12 @@ namespace LiveSplit.UI.Components
             InitializeComponent();
 
             Display2Rows = false;
-            Accuracy = TotalGoldAccuracy.Tenths;
+            Accuracy = TimeAccuracy.Tenths;
         }
 
         public bool Display2Rows { get; set; }
 
-        public enum TotalGoldAccuracy
-        {
-            Seconds,
-            Tenths,
-            Hundredths
-        }
-        public TotalGoldAccuracy Accuracy { get; set; }
+        public TimeAccuracy Accuracy { get; set; }
 
         public LayoutMode Mode { get; set; }
 
@@ -49,7 +44,7 @@ namespace LiveSplit.UI.Components
         public void SetSettings(XmlNode node)
         {
             var element = (XmlElement)node;
-            Accuracy = SettingsHelper.ParseEnum<TotalGoldAccuracy>(element["Accuracy"]);
+            Accuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["Accuracy"]);
             Display2Rows = SettingsHelper.ParseBool(element["Display2Rows"], false);
         }
 
@@ -68,19 +63,19 @@ namespace LiveSplit.UI.Components
                 chkTwoRows.DataBindings.Add("Checked", this, "Display2Rows", false, DataSourceUpdateMode.OnPropertyChanged);
             }
 
-            rdoAccuracySeconds.Checked = (Accuracy == TotalGoldAccuracy.Seconds);
-            rdoAccuracyTenths.Checked = (Accuracy == TotalGoldAccuracy.Tenths);
-            rdoAccuracyHundredths.Checked = (Accuracy == TotalGoldAccuracy.Hundredths);
+            rdoAccuracySeconds.Checked = (Accuracy == TimeAccuracy.Seconds);
+            rdoAccuracyTenths.Checked = (Accuracy == TimeAccuracy.Tenths);
+            rdoAccuracyHundredths.Checked = (Accuracy == TimeAccuracy.Hundredths);
         }
 
         private void UpdateAccuracy()
         {
             if (rdoAccuracySeconds.Checked)
-                Accuracy = TotalGoldAccuracy.Seconds;
+                Accuracy = TimeAccuracy.Seconds;
             else if (rdoAccuracyTenths.Checked)
-                Accuracy = TotalGoldAccuracy.Tenths;
+                Accuracy = TimeAccuracy.Tenths;
             else
-                Accuracy = TotalGoldAccuracy.Hundredths;
+                Accuracy = TimeAccuracy.Hundredths;
         }
 
         private void rdoAccuracySeconds_CheckedChanged(object sender, EventArgs e)
