@@ -6,7 +6,7 @@ namespace LiveSplit.UI.Components
     public class TotalGoldFactory : IComponentFactory
     {
         // The displayed name of the component in the Layout Editor.
-        public string ComponentName => "Total Gold this run";
+        public string ComponentName => "Total Gold This Run";
 
         public string Description => "Displays how much the Sum of Best has been lowered this run.";
 
@@ -20,13 +20,13 @@ namespace LiveSplit.UI.Components
         // Fill in this empty string with the URL of the repository where your component is hosted.
         // This should be the raw content version of the repository. If you're not uploading this
         // to GitHub or somewhere, you can ignore this.
-        public string UpdateURL => "";
+        public string UpdateURL => "https://raw.githubusercontent.com/UNHchabo/LiveSplit.TotalGold/master/";
 
         // Fill in this empty string with the path of the XML file containing update information.
         // Check other LiveSplit components for examples of this. If you're not uploading this to
         // GitHub or somewhere, you can ignore this.
-        public string XMLURL => UpdateURL + "";
+        public string XMLURL => UpdateURL + "Components/update.LiveSplit.TotalGold.xml";
 
-        public Version Version => Version.Parse("1.0.0");
+        public Version Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
     }
 }

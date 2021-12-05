@@ -1,4 +1,5 @@
 ﻿using LiveSplit.Model;
+using LiveSplit.TimeFormatters;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,11 +15,12 @@ namespace LiveSplit.UI.Components
     {
         // This internal component does the actual heavy lifting. Whenever we want to do something
         // like display text, we will call the appropriate function on the internal component.
-        protected InfoTextComponent InternalComponent { get; set; }
+        protected InfoTimeComponent InternalComponent { get; set; }
         // This is how we will access all the settings that the user has set.
         public TotalGoldSettings Settings { get; set; }
         // This object contains all of the current information about the splits, the timer, etc.
         protected LiveSplitState CurrentState { get; set; }
+        protected RegularSumOfBestTimeFormatter Formatter { get; set; }
 
         protected TimeSpan GoldThisRun { get; set; }
         protected TimeSpan? StartingSumOfBest { get; set; }
@@ -46,7 +48,8 @@ namespace LiveSplit.UI.Components
         public TotalGoldComponent(LiveSplitState state)
         {
             Settings = new TotalGoldSettings();
-            InternalComponent = new InfoTextComponent("Total Gold", "-");
+            Formatter = new RegularSumOfBestTimeFormatter();
+            InternalComponent = new InfoTimeComponent("Total Gold", null, Formatter);
             StartingSumOfBest = SumOfBest.CalculateSumOfBest(state.Run);
             CurrentSumOfBest = StartingSumOfBest;
             GoldThisRun = new TimeSpan(0);
@@ -82,6 +85,8 @@ namespace LiveSplit.UI.Components
                 = InternalComponent.ValueLabel.HasShadow
                 = state.LayoutSettings.DropShadows;
 
+            // TODO: Add format call here and horizontal
+
             InternalComponent.NameLabel.ForeColor = state.LayoutSettings.TextColor;
             InternalComponent.ValueLabel.ForeColor = state.LayoutSettings.TextColor;
 
@@ -115,19 +120,14 @@ namespace LiveSplit.UI.Components
                 CurrentSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
                 if (CurrentSumOfBest.HasValue && StartingSumOfBest.HasValue)
                 {
-                    GoldThisRun = StartingSumOfBest.Value - CurrentSumOfBest.Value;
+                    TimeSpan difference = StartingSumOfBest.Value - CurrentSumOfBest.Value;
+                    if (difference > TimeSpan.Zero)
+                    {
+                        GoldThisRun += difference;
+
+                    }
                 }
-                string totalGoldFormat = $"{GoldThisRun.TotalSeconds:0}";
-                if (Settings.Accuracy.Equals(TotalGoldSettings.TotalGoldAccuracy.Tenths))
-                {
-                    totalGoldFormat = $"{GoldThisRun.TotalSeconds:0.#}";
-                }
-                else if (Settings.Accuracy.Equals(TotalGoldSettings.TotalGoldAccuracy.Hundredths))
-                {
-                    totalGoldFormat = $"{GoldThisRun.TotalSeconds:0.##}";
-                }
-                System.Diagnostics.Trace.WriteLine("Gold: " + totalGoldFormat);
-                InternalComponent.InformationValue = totalGoldFormat;
+                InternalComponent.TimeValue = GoldThisRun;
             }
             InternalComponent.Update(invalidator, state, width, height, mode);
         }
