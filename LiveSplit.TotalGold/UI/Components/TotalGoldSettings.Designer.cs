@@ -35,6 +35,7 @@
             this.rdoAccuracySeconds = new System.Windows.Forms.RadioButton();
             this.rdoAccuracyTenths = new System.Windows.Forms.RadioButton();
             this.rdoAccuracyHundredths = new System.Windows.Forms.RadioButton();
+            this.useGoldColor = new System.Windows.Forms.CheckBox();
             this.topLevelLayoutPanel.SuspendLayout();
             this.accuracyGroupBox.SuspendLayout();
             this.decimalLayoutPanel.SuspendLayout();
@@ -45,17 +46,17 @@
             this.topLevelLayoutPanel.AutoSize = true;
             this.topLevelLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.topLevelLayoutPanel.ColumnCount = 1;
-            this.topLevelLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.topLevelLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.topLevelLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.topLevelLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.topLevelLayoutPanel.Controls.Add(this.chkTwoRows, 0, 0);
             this.topLevelLayoutPanel.Controls.Add(this.accuracyGroupBox, 0, 1);
+            this.topLevelLayoutPanel.Controls.Add(this.useGoldColor, 0, 2);
             this.topLevelLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.topLevelLayoutPanel.Name = "topLevelLayoutPanel";
-            this.topLevelLayoutPanel.RowCount = 2;
-            this.topLevelLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.topLevelLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.topLevelLayoutPanel.Size = new System.Drawing.Size(480, 96);
+            this.topLevelLayoutPanel.RowCount = 3;
+            this.topLevelLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.topLevelLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.topLevelLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.topLevelLayoutPanel.Size = new System.Drawing.Size(480, 144);
             this.topLevelLayoutPanel.TabIndex = 0;
             // 
             // chkTwoRows
@@ -77,9 +78,9 @@
             this.accuracyGroupBox.AutoSize = true;
             this.accuracyGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.accuracyGroupBox.Controls.Add(this.decimalLayoutPanel);
-            this.accuracyGroupBox.Location = new System.Drawing.Point(3, 51);
+            this.accuracyGroupBox.Location = new System.Drawing.Point(3, 50);
             this.accuracyGroupBox.Name = "accuracyGroupBox";
-            this.accuracyGroupBox.Size = new System.Drawing.Size(474, 42);
+            this.accuracyGroupBox.Size = new System.Drawing.Size(474, 41);
             this.accuracyGroupBox.TabIndex = 1;
             this.accuracyGroupBox.TabStop = false;
             this.accuracyGroupBox.Text = "Accuracy";
@@ -99,7 +100,7 @@
             this.decimalLayoutPanel.Name = "decimalLayoutPanel";
             this.decimalLayoutPanel.RowCount = 1;
             this.decimalLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.decimalLayoutPanel.Size = new System.Drawing.Size(468, 23);
+            this.decimalLayoutPanel.Size = new System.Drawing.Size(468, 22);
             this.decimalLayoutPanel.TabIndex = 0;
             // 
             // rdoAccuracySeconds
@@ -109,7 +110,7 @@
             this.rdoAccuracySeconds.Location = new System.Drawing.Point(3, 3);
             this.rdoAccuracySeconds.MinimumSize = new System.Drawing.Size(150, 0);
             this.rdoAccuracySeconds.Name = "rdoAccuracySeconds";
-            this.rdoAccuracySeconds.Size = new System.Drawing.Size(150, 17);
+            this.rdoAccuracySeconds.Size = new System.Drawing.Size(150, 16);
             this.rdoAccuracySeconds.TabIndex = 0;
             this.rdoAccuracySeconds.TabStop = true;
             this.rdoAccuracySeconds.Text = "Seconds";
@@ -123,7 +124,7 @@
             this.rdoAccuracyTenths.Location = new System.Drawing.Point(159, 3);
             this.rdoAccuracyTenths.MinimumSize = new System.Drawing.Size(150, 0);
             this.rdoAccuracyTenths.Name = "rdoAccuracyTenths";
-            this.rdoAccuracyTenths.Size = new System.Drawing.Size(150, 17);
+            this.rdoAccuracyTenths.Size = new System.Drawing.Size(150, 16);
             this.rdoAccuracyTenths.TabIndex = 1;
             this.rdoAccuracyTenths.TabStop = true;
             this.rdoAccuracyTenths.Text = "Tenths";
@@ -137,12 +138,23 @@
             this.rdoAccuracyHundredths.Location = new System.Drawing.Point(315, 3);
             this.rdoAccuracyHundredths.MinimumSize = new System.Drawing.Size(150, 0);
             this.rdoAccuracyHundredths.Name = "rdoAccuracyHundredths";
-            this.rdoAccuracyHundredths.Size = new System.Drawing.Size(150, 17);
+            this.rdoAccuracyHundredths.Size = new System.Drawing.Size(150, 16);
             this.rdoAccuracyHundredths.TabIndex = 2;
             this.rdoAccuracyHundredths.TabStop = true;
             this.rdoAccuracyHundredths.Text = "Hundredths";
             this.rdoAccuracyHundredths.UseVisualStyleBackColor = true;
             this.rdoAccuracyHundredths.CheckedChanged += new System.EventHandler(this.rdoAccuracyHundredths_CheckedChanged);
+            // 
+            // useGoldColor
+            // 
+            this.useGoldColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.useGoldColor.AutoSize = true;
+            this.useGoldColor.Location = new System.Drawing.Point(3, 110);
+            this.useGoldColor.Name = "useGoldColor";
+            this.useGoldColor.Size = new System.Drawing.Size(474, 17);
+            this.useGoldColor.TabIndex = 2;
+            this.useGoldColor.Text = "Use Gold Color";
+            this.useGoldColor.UseVisualStyleBackColor = true;
             // 
             // TotalGoldSettings
             // 
@@ -151,7 +163,7 @@
             this.AutoSize = true;
             this.Controls.Add(this.topLevelLayoutPanel);
             this.Name = "TotalGoldSettings";
-            this.Size = new System.Drawing.Size(483, 99);
+            this.Size = new System.Drawing.Size(483, 147);
             this.Load += new System.EventHandler(this.TotalGoldSettings_Load);
             this.topLevelLayoutPanel.ResumeLayout(false);
             this.topLevelLayoutPanel.PerformLayout();
@@ -173,5 +185,6 @@
         private System.Windows.Forms.RadioButton rdoAccuracySeconds;
         private System.Windows.Forms.RadioButton rdoAccuracyTenths;
         private System.Windows.Forms.RadioButton rdoAccuracyHundredths;
+        private System.Windows.Forms.CheckBox useGoldColor;
     }
 }

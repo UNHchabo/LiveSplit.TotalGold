@@ -73,7 +73,6 @@ namespace LiveSplit.UI.Components
             Formatter.Accuracy = Settings.Accuracy;
 
             InternalComponent.NameLabel.ForeColor = state.LayoutSettings.TextColor;
-            InternalComponent.ValueLabel.ForeColor = state.LayoutSettings.TextColor;
 
             InternalComponent.DrawHorizontal(g, state, height, clipRegion);
         }
@@ -90,7 +89,6 @@ namespace LiveSplit.UI.Components
             Formatter.Accuracy = Settings.Accuracy;
 
             InternalComponent.NameLabel.ForeColor = state.LayoutSettings.TextColor;
-            InternalComponent.ValueLabel.ForeColor = state.LayoutSettings.TextColor;
 
             InternalComponent.DrawVertical(g, state, width, clipRegion);
         }
@@ -126,6 +124,11 @@ namespace LiveSplit.UI.Components
                     if (difference > TimeSpan.Zero)
                     {
                         GoldThisRun = difference;
+                        InternalComponent.ValueLabel.ForeColor = Settings.UseGoldColor ? state.LayoutSettings.BestSegmentColor : state.LayoutSettings.TextColor;
+                    }
+                    else
+                    {
+                        InternalComponent.ValueLabel.ForeColor = state.LayoutSettings.TextColor;
                     }
                 }
                 InternalComponent.TimeValue = GoldThisRun;
@@ -150,7 +153,8 @@ namespace LiveSplit.UI.Components
         void state_OnStart(object sender, EventArgs e)
         {
             StartingSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
-            CurrentSumOfBest = StartingSumOfBest;
+            GoldThisRun = new TimeSpan(0);
+            InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
             CurrentTotalValid = false;
         }
 
@@ -162,7 +166,8 @@ namespace LiveSplit.UI.Components
         void state_OnReset(object sender, TimerPhase e)
         {
             StartingSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
-            CurrentSumOfBest = StartingSumOfBest;
+            GoldThisRun = new TimeSpan(0);
+            InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
             CurrentTotalValid = false;
         }
     }
