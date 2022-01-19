@@ -1,4 +1,14 @@
 <updates>
+    <update version="1.1.0">
+        <files>
+            <file path="Components/LiveSplit.TotalGold.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>
+                Add support for Gold Split color, and fix bug showing old total when resetting splits.
+            </change>
+        </changelog>
+    </update>
     <update version="1.0.0">
         <files>
             <file path="Components/LiveSplit.TotalGold.dll" status="changed"/>
