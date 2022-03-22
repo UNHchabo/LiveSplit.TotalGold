@@ -124,15 +124,11 @@ namespace LiveSplit.UI.Components
                     if (difference > TimeSpan.Zero)
                     {
                         GoldThisRun = difference;
-                        InternalComponent.ValueLabel.ForeColor = Settings.UseGoldColor ? state.LayoutSettings.BestSegmentColor : state.LayoutSettings.TextColor;
-                    }
-                    else
-                    {
-                        InternalComponent.ValueLabel.ForeColor = state.LayoutSettings.TextColor;
                     }
                 }
                 InternalComponent.TimeValue = GoldThisRun;
             }
+            InternalComponent.ValueLabel.ForeColor = (Settings.UseGoldColor && GoldThisRun > TimeSpan.Zero) ? LiveSplitStateHelper.GetBestSegmentColor(state) : state.LayoutSettings.TextColor;
             InternalComponent.Update(invalidator, state, width, height, mode);
         }
 
