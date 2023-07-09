@@ -117,11 +117,11 @@ namespace LiveSplit.UI.Components
             if (!CurrentTotalValid)
             {
                 CurrentTotalValid = true;
-                CurrentSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
+                CurrentSumOfBest = SumOfBest.CalculateSumOfBest(state.Run);
                 if (CurrentSumOfBest.HasValue && StartingSumOfBest.HasValue)
                 {
                     TimeSpan difference = StartingSumOfBest.Value - CurrentSumOfBest.Value;
-                    if (difference > TimeSpan.Zero)
+                    if (difference >= TimeSpan.Zero)
                     {
                         GoldThisRun = difference;
                     }
