@@ -15,6 +15,7 @@ namespace LiveSplit.UI.Components
             Display2Rows = false;
             Accuracy = TimeAccuracy.Tenths;
             UseGoldColor = false;
+            CompareSession = false;
         }
 
         public bool Display2Rows { get; set; }
@@ -23,14 +24,17 @@ namespace LiveSplit.UI.Components
 
         public bool UseGoldColor { get; set; }
 
+        public bool CompareSession { get; set; }
+
         public LayoutMode Mode { get; set; }
 
         private int CreateSettingsNode(XmlDocument document, XmlElement parent)
         {
-            return SettingsHelper.CreateSetting(document, parent, "Version", "1.1") ^
+            return SettingsHelper.CreateSetting(document, parent, "Version", "1.2") ^
                 SettingsHelper.CreateSetting(document, parent, "Accuracy", Accuracy) ^
                 SettingsHelper.CreateSetting(document, parent, "Display2Rows", Display2Rows) ^
-                SettingsHelper.CreateSetting(document, parent, "UseGoldColor", UseGoldColor);
+                SettingsHelper.CreateSetting(document, parent, "UseGoldColor", UseGoldColor) ^
+                SettingsHelper.CreateSetting(document, parent, "CompareSession", CompareSession);
         }
 
         public XmlNode GetSettings(XmlDocument document)
@@ -51,6 +55,7 @@ namespace LiveSplit.UI.Components
             Accuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["Accuracy"]);
             Display2Rows = SettingsHelper.ParseBool(element["Display2Rows"], false);
             UseGoldColor = SettingsHelper.ParseBool(element["UseGoldColor"], false);
+            CompareSession = SettingsHelper.ParseBool(element["CompareSession"], false);
         }
 
         private void TotalGoldSettings_Load(object sender, EventArgs e)
@@ -75,6 +80,10 @@ namespace LiveSplit.UI.Components
             useGoldColor.Enabled = true;
             useGoldColor.DataBindings.Clear();
             useGoldColor.DataBindings.Add("Checked", this, "UseGoldColor", false, DataSourceUpdateMode.OnPropertyChanged);
+
+            chkCompareSession.Enabled = true;
+            chkCompareSession.DataBindings.Clear();
+            chkCompareSession.DataBindings.Add("Checked", this, "CompareSession", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void UpdateAccuracy()

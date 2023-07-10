@@ -73,6 +73,7 @@ namespace LiveSplit.UI.Components
             Formatter.Accuracy = Settings.Accuracy;
 
             InternalComponent.NameLabel.ForeColor = state.LayoutSettings.TextColor;
+            InternalComponent.InformationName = "Total Gold" + (Settings.CompareSession ? " (Session)" : " (Run)");
 
             InternalComponent.DrawHorizontal(g, state, height, clipRegion);
         }
@@ -89,6 +90,7 @@ namespace LiveSplit.UI.Components
             Formatter.Accuracy = Settings.Accuracy;
 
             InternalComponent.NameLabel.ForeColor = state.LayoutSettings.TextColor;
+            InternalComponent.InformationName = "Total Gold" + (Settings.CompareSession ? " (Session)" : " (Run)");
 
             InternalComponent.DrawVertical(g, state, width, clipRegion);
         }
@@ -148,9 +150,12 @@ namespace LiveSplit.UI.Components
 
         void state_OnStart(object sender, EventArgs e)
         {
-            StartingSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
-            GoldThisRun = new TimeSpan(0);
-            InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
+            if (!Settings.CompareSession)
+            {
+                StartingSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
+                GoldThisRun = new TimeSpan(0);
+                InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
+            }
             CurrentTotalValid = false;
         }
 
@@ -161,9 +166,11 @@ namespace LiveSplit.UI.Components
 
         void state_OnReset(object sender, TimerPhase e)
         {
-            StartingSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
-            GoldThisRun = new TimeSpan(0);
-            InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
+            if (!Settings.CompareSession) {
+                StartingSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
+                GoldThisRun = new TimeSpan(0);
+                InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
+            }
             CurrentTotalValid = false;
         }
     }
