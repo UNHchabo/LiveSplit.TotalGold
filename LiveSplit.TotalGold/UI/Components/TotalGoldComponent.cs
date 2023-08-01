@@ -61,6 +61,7 @@ namespace LiveSplit.UI.Components
             state.OnSkipSplit += state_OnSplitChange;
             state.OnUndoSplit += state_OnSplitChange;
             state.OnReset += state_OnReset;
+            state.RunManuallyModified += state_RunManuallyModified;
             CurrentState = state;
         }
 
@@ -171,6 +172,15 @@ namespace LiveSplit.UI.Components
                 GoldThisRun = new TimeSpan(0);
                 InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
             }
+            CurrentTotalValid = false;
+        }
+
+        // This method seems to be called when we change split files, and anything in the Edit Splits menu.
+        void state_RunManuallyModified(object sender, EventArgs e)
+        {
+            StartingSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
+            GoldThisRun = new TimeSpan(0);
+            InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
             CurrentTotalValid = false;
         }
     }

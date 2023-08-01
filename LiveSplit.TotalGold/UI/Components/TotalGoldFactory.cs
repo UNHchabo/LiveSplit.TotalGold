@@ -8,7 +8,7 @@ namespace LiveSplit.UI.Components
         // The displayed name of the component in the Layout Editor.
         public string ComponentName => "Total Gold This Run";
 
-        public string Description => "Displays how much the Sum of Best has been lowered this run.";
+        public string Description => "Displays how much the Sum of Best has been lowered this run, or this session.";
 
         // The sub-menu this component will appear under when adding the component to the layout.
         public ComponentCategory Category => ComponentCategory.Information;
