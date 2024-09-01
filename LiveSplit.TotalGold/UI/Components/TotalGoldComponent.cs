@@ -20,7 +20,7 @@ namespace LiveSplit.UI.Components
         public TotalGoldSettings Settings { get; set; }
         // This object contains all of the current information about the splits, the timer, etc.
         protected LiveSplitState CurrentState { get; set; }
-        protected RegularSumOfBestTimeFormatter Formatter { get; set; }
+        protected RegularTimeFormatter Formatter { get; set; }
 
         protected TimeSpan GoldThisRun { get; set; }
         protected TimeSpan? StartingSumOfBest { get; set; }
@@ -48,7 +48,7 @@ namespace LiveSplit.UI.Components
         public TotalGoldComponent(LiveSplitState state)
         {
             Settings = new TotalGoldSettings();
-            Formatter = new RegularSumOfBestTimeFormatter();
+            Formatter = new RegularTimeFormatter();
             InternalComponent = new InfoTimeComponent("Total Gold", null, Formatter);
             StartingSumOfBest = SumOfBest.CalculateSumOfBest(state.Run);
             CurrentSumOfBest = StartingSumOfBest;
