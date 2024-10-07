@@ -1,4 +1,14 @@
 <updates>
+    <update version="1.3.0">
+        <files>
+            <file path="Components/LiveSplit.TotalGold.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>
+                Add counter for number of golds, and fix bugs affecting when recalculation happens.
+            </change>
+        </changelog>
+    </update>
     <update version="1.2.2">
         <files>
             <file path="Components/LiveSplit.TotalGold.dll" status="changed"/>
