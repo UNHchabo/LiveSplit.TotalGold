@@ -25,7 +25,9 @@ namespace LiveSplit.UI.Components
         protected TimeSpan GoldThisRun { get; set; }
         protected TimeSpan? StartingSumOfBest { get; set; }
         protected TimeSpan? CurrentSumOfBest { get; set; }
+        protected TimeSpan? PreviousSumOfBest { get; set; }
         protected bool CurrentTotalValid { get; set; }
+        protected int GoldCount { get; set; }
 
         public string ComponentName => "Total Gold";
 
@@ -52,9 +54,12 @@ namespace LiveSplit.UI.Components
             InternalComponent = new InfoTimeComponent("Total Gold", null, Formatter);
             StartingSumOfBest = SumOfBest.CalculateSumOfBest(state.Run);
             CurrentSumOfBest = StartingSumOfBest;
+            PreviousSumOfBest = CurrentSumOfBest;
+
             GoldThisRun = new TimeSpan(0);
             
             CurrentTotalValid = false;
+            GoldCount = 0;
 
             state.OnStart += state_OnStart;
             state.OnSplit += state_OnSplitChange;
@@ -74,7 +79,7 @@ namespace LiveSplit.UI.Components
             Formatter.Accuracy = Settings.Accuracy;
 
             InternalComponent.NameLabel.ForeColor = state.LayoutSettings.TextColor;
-            InternalComponent.InformationName = "Total Gold" + (Settings.CompareSession ? " (Session)" : " (Run)");
+            InternalComponent.InformationName = "Total Gold (" + GoldCount + " this " + (Settings.CompareSession ? "Session)" : "Run)");
 
             InternalComponent.DrawHorizontal(g, state, height, clipRegion);
         }
@@ -91,7 +96,7 @@ namespace LiveSplit.UI.Components
             Formatter.Accuracy = Settings.Accuracy;
 
             InternalComponent.NameLabel.ForeColor = state.LayoutSettings.TextColor;
-            InternalComponent.InformationName = "Total Gold" + (Settings.CompareSession ? " (Session)" : " (Run)");
+            InternalComponent.InformationName = "Total Gold (" + GoldCount + " this " + (Settings.CompareSession ? "Session)" : "Run)");
 
             InternalComponent.DrawVertical(g, state, width, clipRegion);
         }
@@ -123,11 +128,20 @@ namespace LiveSplit.UI.Components
                 CurrentSumOfBest = SumOfBest.CalculateSumOfBest(state.Run);
                 if (CurrentSumOfBest.HasValue && StartingSumOfBest.HasValue)
                 {
-                    TimeSpan difference = StartingSumOfBest.Value - CurrentSumOfBest.Value;
-                    if (difference >= TimeSpan.Zero)
+                    TimeSpan currentDifference = PreviousSumOfBest.Value - CurrentSumOfBest.Value;
+                    if (currentDifference > TimeSpan.Zero)
                     {
-                        GoldThisRun = difference;
+                        GoldCount += 1;
+
                     }
+                    else if (currentDifference < TimeSpan.Zero)
+                    {
+                        GoldCount -= 1;
+                    }
+                    PreviousSumOfBest = CurrentSumOfBest;
+
+                    TimeSpan totalDifference = StartingSumOfBest.Value - CurrentSumOfBest.Value;
+                    GoldThisRun = totalDifference;
                 }
                 InternalComponent.TimeValue = GoldThisRun;
             }
@@ -155,6 +169,7 @@ namespace LiveSplit.UI.Components
             {
                 StartingSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
                 GoldThisRun = new TimeSpan(0);
+                GoldCount = 0;
                 InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
             }
             CurrentTotalValid = false;
@@ -170,6 +185,7 @@ namespace LiveSplit.UI.Components
             if (!Settings.CompareSession) {
                 StartingSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
                 GoldThisRun = new TimeSpan(0);
+                GoldCount = 0;
                 InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
             }
             CurrentTotalValid = false;
@@ -180,6 +196,7 @@ namespace LiveSplit.UI.Components
         {
             StartingSumOfBest = SumOfBest.CalculateSumOfBest(CurrentState.Run);
             GoldThisRun = new TimeSpan(0);
+            GoldCount = 0;
             InternalComponent.ValueLabel.ForeColor = CurrentState.LayoutSettings.TextColor;
             CurrentTotalValid = false;
         }
